@@ -1,0 +1,128 @@
+<!-- one marker-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Google Maps (marker)</title>
+    <style>
+    #map{
+      height: 400px;
+      width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+    <h1> Google Maps </h1>
+    <div id=map> </div>
+    <script>
+
+    function initMap(){
+      // map options, second paramater of New map function
+      let options = {
+        zoom: 8,
+        center: {lat: -25.363, lng: 131.044}
+      }
+      // new map
+      let map = new google.maps.Map(document.getElementById('map'), options)
+
+      // Marker function
+
+        let marker = new google.maps.Marker({
+           position: {lat: -25.363, lng: 131.044},
+           map: map,
+         })
+
+         let infoWindow = new google.maps.InfoWindow({
+          content: '<h1>Somewhere in the Pacifoc</h1>'
+             });
+
+         marker.addListener('click', function(){
+               infoWindow.open(map, marker);
+            });
+         }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCq04ArY70ba05n6sTkDx0VldkX1fVtCg&callback=initMap">
+    </script>
+
+  </body>
+</html>
+
+<!-- Multiple markers-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Google Maps (marker)</title>
+    <style>
+    #map{
+      height: 400px;
+      width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+    <h1> Google Maps </h1>
+    <div id=map> </div>
+    <script>
+
+    let placeMarkers = [
+      {
+        coords: {lat: -25.363, lng: 131.044},
+        content: '<h1> MEOW </h1>'
+
+      },
+      {
+        coords: {lat: -25.563, lng: 131.044},
+        content:'<h1> MEEP </h1>'
+      },
+      {
+        coords:{lat: -25.163, lng: 131.544},
+        content:'<h1> Bleh </h1>'
+      }
+    ]
+
+
+
+
+    function initMap(){
+      // map options, second paramater of New map function
+      let options = {
+        zoom: 8,
+        center: {lat: -25.363, lng: 131.044}
+      }
+      // new map
+      let map = new google.maps.Map(document.getElementById('map'), options)
+
+      for (var i = 0; i < placeMarkers.length; i++) {
+        addMarker(placeMarkers[i])
+      }
+
+      // Marker function
+      function addMarker(props){
+        let marker = new google.maps.Marker({
+           position: props.coords,
+           map: map,
+         })
+         if(props.content){
+           let infoWindow = new google.maps.InfoWindow({
+              content: props.content
+            });
+
+            marker.addListener('click', function(){
+              infoWindow.open(map, marker);
+            });
+         }
+      }
+
+}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCq04ArY70ba05n6sTkDx0VldkX1fVtCg&callback=initMap">
+    </script>
+
+  </body>
+</html>
