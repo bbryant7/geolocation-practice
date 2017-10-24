@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -14,32 +15,55 @@
 
 <body>
   <h1> Google Maps </h1>
-  <div id=map> </div>
-  <script>
-    function geoFindMe() {
-      if (navigator.geolocation) {
-        function success(position) {
-          let latitude = position.coords.latitude;
-          let longitude = position.coords.longitude;
-            // map options, second paramater of New map function
-          let options = {
-              zoom: 8,
-              center: {
-                lat: latitude,
-                lng: longitude
-              }
-            }
-            // new map
-          let map = new google.maps.Map(document.getElementById('map'), options)
+  <div id=
+  "latlong"> </div>
+  <div id="map"> </div>
 
-          navigator.geolocation.getCurrentPosition(success);
+
+
+  <script>
+
+    navigator.geolocation.getCurrentPosition(displayLocation);
+
+    function displayLocation(position) {
+      // current coordinates
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        let current =  new google.maps.LatLng(latitude, longitude)
+        console.log('displayLocation function ran')
+
+        let marker= new google.maps.Marker({position: current,
+        amp: map})
+          console.log('createMarker function ran')
+
+        showMap(current);
+
+}
+
+    function showMap(current){
+          let options = {
+              zoom: 12,
+              center: current,
+
+            };
+          let map = new google.maps.Map(document.getElementById('map'), options)
+            console.log('showMap function ran')
+
+          let marker= new google.maps.Marker({
+            position: current,
+            map: map})
+
+
+      latlong.innerHTML = `<p>current position is: ${current} </p>`;
 
         }
-      }
-    }
+
+
+
+
   </script>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCq04ArY70ba05n6sTkDx0VldkX1fVtCg&callback=geoFindMe">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCq04ArY70ba05n6sTkDx0VldkX1fVtCg">
   </script>
 
 </body>
